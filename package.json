@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Henrincode/senac-criando-node-api/issues"
   },
-  "homepage": "https://github.com/Henrincode/senac-criando-node-api#readme"
+  "homepage": "https://github.com/Henrincode/senac-criando-node-api#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
