@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Henrincode/senac-criando-node-api#readme",
   "dependencies": {
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
