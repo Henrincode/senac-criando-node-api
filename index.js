@@ -3,12 +3,13 @@ const app = express()
 app.use(express.json())
 
 const cardapio = [
+    // --- MARMITAS ---
     {
         id: 1,
         tipo: "marmita",
         nome: "Marmita P",
         descricao: "Arroz, feijão, batata frita e bife a cavalo",
-        foto: "https://scontent.fcpq5-1.fna.fbcdn.net/v/t39.30808-6/486958553_1079407590871643_4483217887268690525_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=nD6g22ZtPH4Q7kNvwFjGEDJ&_nc_oc=AdmXSJ4vwXOCfmWVd318GMrrNHyWxJueNb5DtdOk88yFUhdHtrcN0ABWwUkT54DkDIU&_nc_zt=23&_nc_ht=scontent.fcpq5-1.fna&_nc_gid=xPYDwiwjvQ1SGd13zxsBFw&oh=00_AfhOaEh5c8ztZ2yzSdxGzDsgvM5P5ptu0KZ1EiXe-H_zdQ&oe=691D919D",
+        foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtDyzzpPqkoKVw04MekB3DMlXJCR95b0WDSQ&s",
         preco: 17.90
     },
     {
@@ -29,14 +30,50 @@ const cardapio = [
     },
     {
         id: 4,
+        tipo: "marmita",
+        nome: "Marmita Fitness",
+        descricao: "Arroz integral, frango grelhado, legumes cozidos e salada verde",
+        foto: "https://tamofiit.com.br/wp-content/uploads/2024/11/IMG_2717-scaled.jpg",
+        preco: 22.90
+    },
+
+    // --- SALADAS ---
+    {
+        id: 5,
         tipo: "salada",
         nome: "Salada Completa",
         descricao: "Alface, tomate, cenoura ralada, milho, ervilha e ovo cozido",
-        foto: "https://scontent.fcpq5-1.fna.fbcdn.net/v/t51.75761-15/465695698_18047000795055616_8388178483558220890_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=kfgZ8SmtevEQ7kNvwH92AEI&_nc_oc=AdlaEm2Tf_Vzw8PLd3-lFpAeVzBADRUTeE4bxRy-CzJq5iYt3TXp7jBuSWwJ0F9N_do&_nc_zt=23&_nc_ht=scontent.fcpq5-1.fna&_nc_gid=dqwpnlol5c6Pymf6-attHA&oh=00_AfjIkclUZuCSujz5BwKesAVdPO-zPQdcaA1-LcCfNMrNlw&oe=691D98E3",
+        foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRPkaHHmn05zWPNf3pDsm8KdBeKrXP2hu1gQ&s",
         preco: 12.00
     },
     {
-        id: 5,
+        id: 6,
+        tipo: "salada",
+        nome: "Salada Verde",
+        descricao: "Alface, rúcula, agrião e tomate cereja",
+        foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtrJ2zZdhDGekljscuJhZjknktDGP5Vq_C1g&s",
+        preco: 10.00
+    },
+    {
+        id: 7,
+        tipo: "salada",
+        nome: "Salada Caesar",
+        descricao: "Alface americana, frango grelhado, croutons e molho caesar",
+        foto: "https://www.seara.com.br/wp-content/uploads/2025/09/salada-caesar-com-frango-portal-minha-receita.jpg",
+        preco: 15.00
+    },
+    {
+        id: 8,
+        tipo: "salada",
+        nome: "Salada Tropical",
+        descricao: "Alface, manga, frango, cenoura e molho de maracujá",
+        foto: "https://vitat.com.br/receitas/images/recipeshandler.jpg?id=217&tipo=r&default=s",
+        preco: 14.00
+    },
+
+    // --- BEBIDAS ---
+    {
+        id: 9,
         tipo: "bebida",
         nome: "Refrigerante Lata",
         descricao: "Lata 350ml",
@@ -44,30 +81,62 @@ const cardapio = [
         preco: 6.00
     },
     {
-        id: 6,
+        id: 10,
         tipo: "bebida",
         nome: "Suco Natural",
         descricao: "Sabores: laranja, limão ou maracujá",
         foto: "https://mocabonitabar.com.br/wp-content/uploads/2024/09/Como-guardar-suco-natural-800x445.jpg",
         preco: 8.00
+    },
+    {
+        id: 11,
+        tipo: "bebida",
+        nome: "Água Mineral",
+        descricao: "Garrafa 500ml",
+        foto: "https://www.delgo.com.br/imagens/como-e-feito-o-envase-de-agua-mineral.jpg",
+        preco: 3.50
+    },
+    {
+        id: 12,
+        tipo: "bebida",
+        nome: "Chá Gelado",
+        descricao: "Limão ou pêssego — 300ml",
+        foto: "https://image.tuasaude.com/media/article/bs/as/cha-gelado_73312.jpg",
+        preco: 7.00
     }
 ]
 
+
+
 // mostrar todos os itens
-app.get('/marmitas', (req, res) => {
-    res.send(cardapio)
+app.get('/:tipo', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    const rota = req.params.tipo
+    res.send(cardapio.filter(produto => produto.tipo + 's' == rota))
 })
+
+// app.get('/marmitas', (req, res) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*')
+//     const cardapioFiltrado = cardapio.filter(produto => produto.tipo == 'marmita')
+//     res.send(cardapioFiltrado)
+// })
+
+// app.get('/saladas', (req, res) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*')
+//     const cardapioFiltrado = cardapio.filter(produto => produto.tipo == 'salada')
+//     res.send(cardapioFiltrado)
+// })
+
+// app.get('/bebidas', (req, res) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*')
+//     const cardapioFiltrado = cardapio.filter(produto => produto.tipo == 'bebida')
+//     res.send(cardapioFiltrado)
+// })
 
 // Mostrar um item
-app.get('/marmitas/:id', (req, res) => {
+app.get('/:tipo/:id', (req, res) => {
     const id = req.params.id
     res.send(cardapio[id - 1])
-})
-
-// filtrar por categoria
-app.get('/marmitas/:tipo', (req, res) => {
-    const tipo = req.params.tipo
-    res.send(cardapio.map(produto => produto.tipo === tipo))
 })
 
 // Inserir Marmita
